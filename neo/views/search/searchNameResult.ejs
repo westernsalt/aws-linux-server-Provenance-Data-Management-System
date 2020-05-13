@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include ../before_loading.ejs %>
+    <title>개인정보 이력관리 시스템</title>
+    <style type="text/css">
+        @font-face { font-family: 'Binggrae-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
+        @font-face { font-family: 'RIDIBatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); font-weight: normal; font-style: normal; }
+        body {
+            font-family: 'RIDIBatang';
+            color: #333333;
+            letter-spacing: 1px;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            font-size: 0.9em;
+        }
+    </style>
+
+</head>
+
+<body style="overflow:auto">
+<% include ../header %>
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <% include ../menu %>
+
+    <hr class="featurette-divider">
+    <div class="jumbotron" style="background-color: #f8f8f8;">
+        <div class="container">
+            <div style="text-align: center; font-size:2em;">기관으로 검색<br><br>
+            </div>
+            <form method="post" action="/nameSearch">
+                <div class="row">
+                    <!--Start Here:)-->
+                    <div style="margin:0 auto;">
+                        <div class="input-group" style="width:30%; margin:0 auto;">
+                            <span class="input-group-addon">기관명</span>
+                            <input type="text" id="name" name="name" value='' class="form-control"/>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div style="text-align: center;"><br><br>
+                    <a href="/search/searchDataResult"><input class="btn btn-primary" type="submit" value="검색"
+                                                              style="width:100px; background-color: #4a9dea; border-color:  #4a9dea;"></a>
+                    <a href=""><input class="btn btn-light" type="reset" value="취소" style="width:100px; background-color: #dddddd;"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+    <div class="jumbotron" style="background-color: #f8f8f8;">
+        <div class="container" style="display: inline-block;text-align: center;">
+            <!-- Default panel contents -->
+            <% if(authenticated == false){ %>
+                <% include ../notAuthenticated %>
+            <% }
+            else { %>
+            <div class="jumbotron" style="background-color: #f8f8f8;">
+                <div class="panel panel-default" style="background-color: #ffffff">
+                    <div class="panel-heading" style="font-size:1.5em; background-color: #e7ebee;">기관 검색 결과 (생성)</div>
+                    <!-- Table -->
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>데이터명</th>
+                            <th>값</th>
+                            <th>파일</th>
+                            <th>생성처</th>
+                            <th>날짜</th>
+                            <th>기타정보</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i = 0; i < names.length; i++ ) { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= (i + 1) %>
+                                </th>
+                                <td>
+                                    <%= dataNames3[i] %>
+                                </td>
+                                <td align=center width=200;>
+                                    <%= values3[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= file_paths3[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= origins3[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= dates3[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= details3[i] %>
+                                </td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <br><br>
+           
+       
+                <div class="panel panel-default" style="background-color: #ffffff">
+                    <div class="panel-heading" style="font-size:1.5em; background-color: #e7ebee;">기관 검색 결과 (제공)</div>
+                    <table class="table table-striped" style="font-size: 0.85em;">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>데이터명</th>
+                            <th>값</th>
+                            <th>파일</th>
+                            <th>생성처</th>
+                            <th>날짜</th>
+                            <th>제공기관</th>
+                            <th>가격</th>
+                            <th>허용기간</th>
+                            <th>정보제공 동의여부</th>
+                            <th>기타정보</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i = 0; i < s_names.length; i++ ) { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= (i + 1) %>
+                                </th>
+                                <td>
+                                    <%= dataNames4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= values4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= file_paths4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= origins4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= dates4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= r_names[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= prices4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= APFroms4[i] %> ~ <%= APTos4[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= isAgrees[i] %>
+                                </td>
+                                <td align=center>
+                                    <%= details4[i] %>
+                                </td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>             
+                </div>
+            </div>
+            <% } %> 
+
+            </div>
+
+        </div>
+        <!-- FOOTER -->
+        <footer>
+        </footer>
+        <!-- /.container -->
+ 
+</body>
+</html>

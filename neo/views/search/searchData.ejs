@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include ../before_loading.ejs %>
+    <title>개인정보 이력관리 시스템</title>
+
+    <style type="text/css">
+        @font-face { font-family: 'Binggrae-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
+        @font-face { font-family: 'RIDIBatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); font-weight: normal; font-style: normal; }
+        .input-group-addon.primary {
+            color: rgb(255, 255, 255);
+            background-color: rgb(50, 118, 177);
+            border-color: rgb(40, 94, 142);
+        }
+
+        body {
+            font-family: 'RIDIBatang';
+            color: #303030;
+            letter-spacing: 1px;
+        }
+    </style>
+
+<script type="text/javascript">
+
+    function checkForm(){
+    var dataName= get.ElementByName("dataName");
+    var price= get.ElementByName("price");
+    var dataType = document.getElementById('dataType').options[document.getElementById('device').selectedIndex].value;
+    var device = document.getElementById('device').options[document.getElementById('device').selectedIndex].value;
+    alert(device.value);
+    
+    if(dataName.value =="" && price.value =="" && dataType.value =="" && device.value =="") {
+        alert("아무것도 입력되지 않았습니다.");
+        return false; 
+    }
+    else {
+        document.search.submit();
+    }
+}
+</script>
+
+</head>
+
+<body style="overflow:auto">
+<% include ../header %>
+
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+
+    <div class="container marketing">
+        <% include ../menu %>
+
+        <hr class="featurette-divider">
+        <div class="jumbotron" style="background-color: #f8f8f8;">
+            <% if(esession.authenticated == false){ %>
+                <% include ../notAuthenticated.ejs %>
+            <% }else{ %>
+                <div class="container">
+                    <div style="text-align: center; font-size:2em;">데이터로 검색<br><br>
+                    </div>
+                    <form method="post" action="/DataSearch" id = "search">
+                        <div class="row">
+                            <!--Start Here:)-->
+                            <div style="margin:0 auto;">
+                                <div class="input-group" style="width:30%; margin:0 auto;">
+                                    <span class="input-group-addon">데이터명</span>
+                                    <input type="text" id="dataName" name="dataName" value='' class="form-control"/>
+                                </div>
+                                <br>
+                                <div class="input-group" style="width:30%; margin:0 auto;">
+                                    <span class="input-group-addon">생성처</span>
+                                    <input type="text" id="origin" name="origin" value='' class="form-control"/>
+                                </div>
+                                <br>
+
+                                <!--<div class="form-group">
+                                    <label class="control-label col-sm-offset-2 col-sm-2" for="company"></label>
+                                    <div class="col-sm-6 col-md-4">
+                                        <select id="device" name="device" class="form-control">
+                                            <option value=''>수집 장치</option>
+                                            <option value="AI스피커">AI스피커</option>
+                                            <option value="T머니">T머니</option>
+                                            <option value="레일플러스">레일플러스</option>
+                                            <option value="스마트워치">스마트워치</option>
+                                            <option value="페이션트모니터">페이션트모니터</option>
+                                            <option value="캐시비">캐시비</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-group" style="width:30%; margin:0 auto;">
+                                    <span class="input-group-addon">&nbsp 가격 &nbsp </span>
+                                    <input type="text" aria-label="price1" class="form-control" />
+                                    <input type="text" aria-label="price2" class="form-control" />
+                                </div>-->
+                            </div>
+                        </div>
+                        <!--</form>-->  <!--디비연결전송오류로잠시위치이동-->
+                        <div style="text-align: center;"><br><br>
+                            <a href="/search/searchDataResult"><input class="btn btn-primary" type="submit" value="검색"
+                                                                      style="width:100px; background-color: #4a9dea; border-color:  #4a9dea;" onclick="checkForm();"></a>
+                            <a href=""><input class="btn btn-light" type="reset" value="취소" style="width:100px; background-color: #dddddd;"></a>
+                        </div>
+                    </form><!--원래폼위치-->
+                </div>
+            <% } %>
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</body>
+</html>
