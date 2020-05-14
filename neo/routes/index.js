@@ -139,6 +139,7 @@ router.get('/logout', function (req, res, next) {
     req.session.gubun = '';
     req.session.password = '';
     req.session.authenticated = false;
+    req.session.pid = '';
 
     esession.email = '';
     esession.name = '';
@@ -147,6 +148,7 @@ router.get('/logout', function (req, res, next) {
     esession.gubun = '';
     esession.password = '';
     esession.authenticated = false;
+    esession.pid = '';
     
     res.redirect('/');
     //res.render('index', {esession: req.session });
@@ -183,11 +185,13 @@ router.post('/users', function (req, res){
                     esession.gubun = results[0]["gubun"];
                     esession.password = body.password;
                     esession.authenticated = true;
+                    esession.pid = results[0]["pid"];
 
                     req.session.email = body.email;
                     req.session.user_name = results[0]["name"];
                     req.session.user = results[0]["name"];
                     req.session.gubun = results[0]["gubun"];
+                    req.session.pid = results[0]["pid"];
                     req.session.password = body.password;
                     req.session.authenticated = true;
                     
